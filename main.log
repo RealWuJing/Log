@@ -1,0 +1,6 @@
+main.cpp main 5 hello world
+5 hello world
+main.cpp:main:5 hello world
+[main.cpp:main:5]: hello world
+[main.cpp:main:5]: hello world
+[main.cpp:main:5]: hello world
