@@ -1,7 +1,7 @@
 /*** 
  * @Author: wujing
  * @Date: 2021-05-07 12:14:03
- * @LastEditTime: 2021-05-07 15:21:05
+ * @LastEditTime: 2021-05-07 15:30:37
  * @LastEditors: wujing
  * @Description: 
  * @FilePath: /Log/Log.h
@@ -49,6 +49,8 @@ private:
 public:
     Log(string sFileName);
     ~Log();
+    static string getTime();
+    static string getCurrentFormatTimeString();
 
 private:
     void _write(string sFileName);
@@ -71,7 +73,7 @@ void Log::_write(string sFileName)
     outfile.close();
 }
 
-static string getTime()
+string Log::getTime()
 {
     time_t timep;
     time(&timep);
@@ -80,7 +82,7 @@ static string getTime()
     return tmp;
 }
 
-static string getCurrentFormatTimeString()
+string Log::getCurrentFormatTimeString()
 {
     struct timeval tv;
     char timeArray[40];
@@ -97,6 +99,6 @@ static string getCurrentFormatTimeString()
     return ss.str();
 }
 
-#define FLOG(sFileName) Log(sFileName) << "[" << getCurrentFormatTimeString() << " " << __FILE__ << ":" << __FUNCTION__ << ":" << __LINE__ << "]: "
+#define FLOG(sFileName) Log(sFileName) << "[" << Log::getCurrentFormatTimeString() << " " << __FILE__ << ":" << __FUNCTION__ << ":" << __LINE__ << "]: "
 
 #endif
