@@ -1,7 +1,7 @@
 /*** 
  * @Author: wujing
  * @Date: 2021-05-07 12:14:03
- * @LastEditTime: 2021-05-07 14:52:23
+ * @LastEditTime: 2021-05-07 15:21:05
  * @LastEditors: wujing
  * @Description: 
  * @FilePath: /Log/Log.h
@@ -15,6 +15,8 @@
 #include <sstream>
 #include <fstream>
 #include <time.h>
+#include <sys/time.h>
+#include <string.h>
 
 using namespace std;
 
@@ -69,7 +71,7 @@ void Log::_write(string sFileName)
     outfile.close();
 }
 
-string getTime()
+static string getTime()
 {
     time_t timep;
     time(&timep);
@@ -78,6 +80,23 @@ string getTime()
     return tmp;
 }
 
-#define FLOG(sFileName) Log(sFileName) << "[" << getTime() << " " << __FILE__ << ":" << __FUNCTION__ << ":" << __LINE__ << "]: "
+static string getCurrentFormatTimeString()
+{
+    struct timeval tv;
+    char timeArray[40];
+    stringstream ss;
+
+    gettimeofday(&tv, NULL);
+
+    memset(timeArray, 0, sizeof(timeArray));
+
+    strftime(timeArray, sizeof(timeArray) - 1, "%F %T", localtime(&tv.tv_sec));
+
+    ss << string(timeArray) << "." << tv.tv_usec;
+
+    return ss.str();
+}
+
+#define FLOG(sFileName) Log(sFileName) << "[" << getCurrentFormatTimeString() << " " << __FILE__ << ":" << __FUNCTION__ << ":" << __LINE__ << "]: "
 
 #endif

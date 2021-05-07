@@ -5,3 +5,5 @@ main.cpp:main:5 hello world
 [main.cpp:main:5]: hello world
 [main.cpp:main:5]: hello world
 [2021-05-07 14:52:53 main.cpp:main:5]: hello world
+[2021-05-07 15:14:54.34182 main.cpp:main:5]: hello world
+[2021-05-07 15:21:55.333348 main.cpp:main:5]: hello world
