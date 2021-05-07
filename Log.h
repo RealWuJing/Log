@@ -1,7 +1,7 @@
 /*** 
  * @Author: wujing
  * @Date: 2021-05-07 12:14:03
- * @LastEditTime: 2021-05-07 13:38:43
+ * @LastEditTime: 2021-05-07 14:52:23
  * @LastEditors: wujing
  * @Description: 
  * @FilePath: /Log/Log.h
@@ -14,6 +14,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <time.h>
 
 using namespace std;
 
@@ -68,6 +69,15 @@ void Log::_write(string sFileName)
     outfile.close();
 }
 
-#define FLOG(sFileName) Log(sFileName) << "[" << __FILE__ << ":" << __FUNCTION__ << ":" << __LINE__ << "]: "
+string getTime()
+{
+    time_t timep;
+    time(&timep);
+    char tmp[256];
+    strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S", localtime(&timep));
+    return tmp;
+}
+
+#define FLOG(sFileName) Log(sFileName) << "[" << getTime() << " " << __FILE__ << ":" << __FUNCTION__ << ":" << __LINE__ << "]: "
 
 #endif
